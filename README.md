@@ -1,49 +1,593 @@
-# MongoDB Assignment: Todo List
-📦 Database Selection
-use Mongo_Assignment // Output: switched to db Mongo_Assignment
+# Mongodb ToDo List Assignment
 
-## Insert Multiple Todos
-db.todos.insertMany([ { taskName: "Buy groceries", status: false, priority: "Medium", description: "Purchase fruits, vegetables, milk, and bread from the supermarket." }, { taskName: "Complete project report", status: false, priority: "High", description: "Finish writing and editing the final report for the marketing project." }, // ... (other 8 records) ]);
 
-## Output:
-{ acknowledged: true, insertedIds: { "0": ObjectId("..."), "1": ObjectId("..."), // ... } }
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.insertMany([{name:"Docker",status:"pending"},{name:"AWS",status:"completed"},{namAtlas atlas-2ig97m-shard-0 [primary] test> db.tasks.insertMany([{name:"Docker",status:"pending"},{name:"AWS",status:"completed"},{name:"Python",status:"pending"},{name:"Jenkins",status:"completed"},{name:"SonarQube",status:"pending"},{name:"Mongo",status:"completed"},{name:"Lambda",status:"pending"},{name:"Promethius",status:"completed"},{name:"Graffana",status:"pending"},{name:"Linux",status:"completed"}]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('68373e61c6c9a40e996c4bd0'),
+    '1': ObjectId('68373e61c6c9a40e996c4bd1'),
+    '2': ObjectId('68373e61c6c9a40e996c4bd2'),
+    '3': ObjectId('68373e61c6c9a40e996c4bd3'),
+    '4': ObjectId('68373e61c6c9a40e996c4bd4'),
+    '5': ObjectId('68373e61c6c9a40e996c4bd5'),
+    '6': ObjectId('68373e61c6c9a40e996c4bd6'),
+    '7': ObjectId('68373e61c6c9a40e996c4bd7'),
+    '8': ObjectId('68373e61c6c9a40e996c4bd8'),
+    '9': ObjectId('68373e61c6c9a40e996c4bd9')
+  }
+}
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.find()
+[
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd0'),
+    name: 'Docker',
+    status: 'pending'
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd1'),
+    name: 'AWS',
+    status: 'completed'
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd2'),
+    name: 'Python',
+    status: 'pending'
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd3'),
+    name: 'Jenkins',
+    status: 'completed'
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd4'),
+    name: 'SonarQube',
+    status: 'pending'
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd5'),
+    name: 'Mongo',
+    status: 'completed'
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd6'),
+    name: 'Lambda',
+    status: 'pending'
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd7'),
+    name: 'Promethius',
+    status: 'completed'
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd8'),
+    name: 'Graffana',
+    status: 'pending'
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd9'),
+    name: 'Linux',
+    status: 'completed'
+  }
+]
 
-## View All Todos
-db.todos.find()
 
-## Sample Output:
-{ _id: ObjectId("..."), taskName: "Buy groceries", status: false, priority: "Medium", description: "Purchase fruits, vegetables, milk, and bread from the supermarket." }
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.updateMany({status:"pending"},{$set:{status:false}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 5,
+  modifiedCount: 5,
+  upsertedCount: 0
+}
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.updateMany({status:"completed"},{$set:{status:true}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 5,
+  modifiedCount: 5,
+  upsertedCount: 0
+}
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.find()
+[
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd0'),
+    name: 'Docker',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd1'),
+    name: 'AWS',
+    status: true
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd2'),
+    name: 'Python',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd3'),
+    name: 'Jenkins',
+    status: true
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd4'),
+    name: 'SonarQube',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd5'),
+    name: 'Mongo',
+    status: true
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd6'),
+    name: 'Lambda',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd7'),
+    name: 'Promethius',
+    status: true
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd8'),
+    name: 'Graffana',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd9'),
+    name: 'Linux',
+    status: true
+  }
+]
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.updateMany({},{$set:{status:false}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 10,
+  modifiedCount: 5,
+  upsertedCount: 0
+}
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.find()
+[
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd0'),
+    name: 'Docker',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd1'),
+    name: 'AWS',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd2'),
+    name: 'Python',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd3'),
+    name: 'Jenkins',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd4'),
+    name: 'SonarQube',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd5'),
+    name: 'Mongo',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd6'),
+    name: 'Lambda',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd7'),
+    name: 'Promethius',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd8'),
+    name: 'Graffana',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd9'),
+    name: 'Linux',
+    status: false
+  }
+]
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.insertOne({name:'Latest',status:false})
+{
+  acknowledged: true,
+  insertedId: ObjectId('68373f3ec6c9a40e996c4bda')
+}
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.updateOne({_id:ObjectId('68373f3ec6c9a40e996c4bda')},{$set:{status:true}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.find()
+[
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd0'),
+    name: 'Docker',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd1'),
+    name: 'AWS',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd2'),
+    name: 'Python',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd3'),
+    name: 'Jenkins',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd4'),
+    name: 'SonarQube',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd5'),
+    name: 'Mongo',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd6'),
+    name: 'Lambda',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd7'),
+    name: 'Promethius',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd8'),
+    name: 'Graffana',
+    status: false
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd9'),
+    name: 'Linux',
+    status: false
+  },
+  {
+    _id: ObjectId('68373f3ec6c9a40e996c4bda'),
+    name: 'Latest',
+    status: true
+  }
+]
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.updateMany({},{$set:{Updated_at:new Date()}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 11,
+  modifiedCount: 11,
+  upsertedCount: 0
+}
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.find()
+[
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd0'),
+    name: 'Docker',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd1'),
+    name: 'AWS',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd2'),
+    name: 'Python',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd3'),
+    name: 'Jenkins',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd4'),
+    name: 'SonarQube',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd5'),
+    name: 'Mongo',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd6'),
+    name: 'Lambda',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd7'),
+    name: 'Promethius',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd8'),
+    name: 'Graffana',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd9'),
+    name: 'Linux',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373f3ec6c9a40e996c4bda'),
+    name: 'Latest',
+    status: true,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  }
+]
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.updateMany({name:'Linux'},{$set:{DeadLine:new Date("2025-05-29T11:19:24.767Z")}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.find()
+[
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd0'),
+    name: 'Docker',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd1'),
+    name: 'AWS',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd2'),
+    name: 'Python',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd3'),
+    name: 'Jenkins',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd4'),
+    name: 'SonarQube',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd5'),
+    name: 'Mongo',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd6'),
+    name: 'Lambda',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd7'),
+    name: 'Promethius',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd8'),
+    name: 'Graffana',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd9'),
+    name: 'Linux',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z'),
+    DeadLine: ISODate('2025-05-29T11:19:24.767Z')
+  },
+  {
+    _id: ObjectId('68373f3ec6c9a40e996c4bda'),
+    name: 'Latest',
+    status: true,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  }
+]
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.updateOne({name:'Graffana'},{$set:{DeadLine:new Date()}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.find()
+[
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd0'),
+    name: 'Docker',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd1'),
+    name: 'AWS',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd2'),
+    name: 'Python',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd3'),
+    name: 'Jenkins',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd4'),
+    name: 'SonarQube',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd5'),
+    name: 'Mongo',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd6'),
+    name: 'Lambda',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd7'),
+    name: 'Promethius',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd8'),
+    name: 'Graffana',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z'),
+    DeadLine: ISODate('2025-05-28T16:56:13.222Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd9'),
+    name: 'Linux',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z'),
+    DeadLine: ISODate('2025-05-29T11:19:24.767Z')
+  },
+  {
+    _id: ObjectId('68373f3ec6c9a40e996c4bda'),
+    name: 'Latest',
+    status: true,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  }
+]
 
-## Update All Status to false
-db.todos.updateMany({}, { $set: { status: false } })
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.find({Updated_at:{$gt: new Date(new Date().getTime()-2*60*1000)}})
 
-## Output:
-{ acknowledged: true, matchedCount: 10, modifiedCount: 3 }
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.find({Updated_at:{$gt: new Date(new Date().getTime()-6*60*1000)}})
+[
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd0'),
+    name: 'Docker',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd1'),
+    name: 'AWS',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd2'),
+    name: 'Python',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd3'),
+    name: 'Jenkins',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd4'),
+    name: 'SonarQube',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd5'),
+    name: 'Mongo',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd6'),
+    name: 'Lambda',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd7'),
+    name: 'Promethius',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd8'),
+    name: 'Graffana',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z'),
+    DeadLine: ISODate('2025-05-28T16:56:13.222Z')
+  },
+  {
+    _id: ObjectId('68373e61c6c9a40e996c4bd9'),
+    name: 'Linux',
+    status: false,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z'),
+    DeadLine: ISODate('2025-05-29T11:19:24.767Z')
+  },
+  {
+    _id: ObjectId('68373f3ec6c9a40e996c4bda'),
+    name: 'Latest',
+    status: true,
+    Updated_at: ISODate('2025-05-28T16:53:25.103Z')
+  }
+]
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.countDocuments()
+11
 
-## Set Priority Levels
-// High Priority db.todos.updateMany( { taskName: { $in: [ "Complete project report", "Review team presentation", "Pay utility bills", "Backup laptop data" ]} }, { $set: { priority: "High" } } )
 
-// Medium Priority db.todos.updateMany( { taskName: { $in: [ "Buy groceries", "Morning workout", "Plan weekend trip" ]} }, { $set: { priority: "Medium" } } )
-
-// Low Priority db.todos.updateMany( { taskName: { $in: [ "Call the dentist", "Clean the garage", "Read a book" ]} }, { $set: { priority: "Low" } } )
-
-## Schema Validation
-db.runCommand({ collMod: "todos", validator: { priority: { $in: ["Low", "Medium", "High"] } }, validationLevel: "moderate" })
-
-## Test Invalid Insert:
-db.todos.insertOne({ taskName: "Test invalid priority", status: false, priority: "Higher", description: "This should fail if schema validation is enforced." })
-
-## Output:
-MongoServerError: Document failed validation
-
-## Add Dates
-db.todos.updateMany({}, { $set: { updatedDate: null, dueDate: null } })
-
-## Set Dates for One Todo:
-db.todos.updateOne( { taskName: "Buy groceries" }, { $set: { updatedDate: new Date(), dueDate: ISODate("2025-06-15T00:00:00Z") } } )
-
-## Update Status
-db.todos.updateOne( { _id: ObjectId("68371a905ac635fb39d1b8ca") }, { $set: { status: true } } ) db.todos.find()
-
-❗ Output:
-{ _id: ObjectId('68371a905ac635fb39d1b8ca'), taskName: 'Buy groceries', status: true, priority: 'Medium', description: 'Purchase fruits, vegetables, milk, and bread from the supermarket.', dueDate: 2025-06-15T00:00:00.000Z, updatedDate: 2025-05-28T16:33:42.612Z } { _id: ObjectId('68371a905ac635fb39d1b8cb'), taskName: 'Complete project report', status: false, priority: 'High', description: 'Finish writing and editing the final report for the marketing project.', dueDate: null, updatedDate: null } { _id: ObjectId('68371a905ac635fb39d1b8cc'), taskName: 'Morning workout', status: false, priority: 'Medium', description: '30-minute workout session including cardio and stretching exercises.', dueDate: null, updatedDate: null } { _id: ObjectId('68371a905ac635fb39d1b8cd'), taskName: 'Call the dentist', status: false, priority: 'Low', description: 'Schedule a routine dental check-up appointment.', dueDate: null, updatedDate: null } { _id: ObjectId('68371a905ac635fb39d1b8ce'), taskName: 'Review team presentation', status: false, priority: 'High', description: 'Go through the slides and provide feedback to the design team.', dueDate: null, updatedDate: null } { _id: ObjectId('68371a905ac635fb39d1b8cf'), taskName: 'Clean the garage', status: false, priority: 'Low', description: 'Organize tools and remove old boxes from the garage.', dueDate: null, updatedDate: null } { _id: ObjectId('68371a905ac635fb39d1b8d0'), taskName: 'Pay utility bills', status: false, priority: 'High', description: 'Paid electricity, water, and internet bills online.', dueDate: null, updatedDate: null } { _id: ObjectId('68371a905ac635fb39d1b8d1'), taskName: 'Plan weekend trip', status: false, priority: 'Medium', description: 'Research locations and accommodations for a short weekend getaway.', dueDate: null, updatedDate: null } { _id: ObjectId('68371a905ac635fb39d1b8d2'), taskName: 'Backup laptop data', status: false, priority: 'High', description: 'Create a backup of important files to an external hard drive or cloud.', dueDate: null, updatedDate: null } { _id: ObjectId('68371a905ac635fb39d1b8d3'), taskName: 'Read a book', status: false, priority: 'Low', description: 'Finished reading “Atomic Habits” by James Clear.', dueDate: null, updatedDate: null }
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.countDocuments({DeadLine:true})
+0
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.countDocuments({})
+11
+>> Atlas atlas-2ig97m-shard-0 [primary] test> db.tasks.countDocuments({name:'Promethius'})
+1
